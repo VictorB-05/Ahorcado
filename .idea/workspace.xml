@@ -4,8 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2908d613-e5c0-439d-9c7d-560d1e87f991" name="Changes" comment="Inicio del ahorcado con un lisener e inicio de la interfaz">
+    <list default="true" id="2908d613-e5c0-439d-9c7d-560d1e87f991" name="Changes" comment="Empezamos con las tablas de las bases de datos">
+      <change afterPath="$PROJECT_DIR$/resorcues/ahorcado1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resorcues/ahorcado2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resorcues/ahorcado3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resorcues/ahorcado4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resorcues/ahorcado5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resorcues/ahorcado6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resorcues/ahorcado7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resorcues/lose.gif" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interfaz.py" beforeDir="false" afterPath="$PROJECT_DIR$/Interfaz.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logica.py" beforeDir="false" afterPath="$PROJECT_DIR$/Logica.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Registro.db" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -23,6 +34,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;VictorB-05&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/VictorB-05/Ahorcado.git&quot;,
+    &quot;accountId&quot;: &quot;3369469f-dab5-4ef8-a99b-30c7a7529b19&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -32,16 +55,48 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.Interfaz.executor": "Run",
-    "Python.database.executor": "Run",
-    "Python.lisener.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.Interfaz.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Logica.executor&quot;: &quot;Run&quot;,
+    &quot;Python.database.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lisener.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/alumno/Desktop/InterfazPython_FloresMarzoJoseManuel (4)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\alumno\PycharmProjects\Ahorcado\resorcues" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Interfaz" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="Ahorcado" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12 (Ahorcado)" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Interfaz.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -58,6 +113,19 @@
       <option name="presentableId" value="Default" />
       <updated>1731698430125</updated>
     </task>
+    <task id="LOCAL-00001" summary="Empezamos con las tablas de las bases de datos">
+      <option name="closed" value="true" />
+      <created>1731960160220</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1731960160220</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Empezamos con las tablas de las bases de datos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Empezamos con las tablas de las bases de datos" />
   </component>
 </project>
