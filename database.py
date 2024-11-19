@@ -25,6 +25,8 @@ def iniciar():
                    "FOREIGN KEY(idJugador) REFERENCES jugador(id),"
                    "FOREIGN KEY(idPalabra) REFERENCES palabra(id))")
 
+    cursor.execute("INSERT INTO jugador (nombre) VALUES (Paco)")
+
     conn.commit()
 
     cursor.execute("SELECT * FROM palabra")
@@ -54,5 +56,15 @@ def palabras(tipo):
     cursor.execute("SELECT id,palabra FROM palabra WHERE tipo LIKE ?", (tipo + '%',))
     rel = cursor.fetchall()
     posicion = random.randint(0,len(rel))-1 #valor random de la palabra
-    var = rel[posicion][1] # se coje el valor random y el 1 para la palabra hay que cambiar porque necesito el ID
+    var = rel[posicion] # se coje el valor random de la base de datos
     return var
+
+def partida(jugador,palabra,ganar):
+    conn = sqlite3.connect('Registro.db')
+
+    # Crear un cursor
+    cursor = conn.cursor()
+    cursor.execute("SELECT id FROM jugador WHERE nombre = ?",jugador)
+    id = cursor.fetchone()
+
+    cursor.execute("INSERT INTO partidas (ganada,idJugador,idPalabra) VALUES (?,?,?)")

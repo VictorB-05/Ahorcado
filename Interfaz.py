@@ -8,7 +8,7 @@ from PIL import Image, ImageTk
 abecedario = [chr(i) for i in range(97, 123)] #abecedario
 teclas_presionadas = set() # Almacenar teclas presionadas para evitar letras duplicadas
 palabra = database.palabras("F")
-logica = Logica.Logica("Paco", palabra)
+logica = Logica.Logica("Paco", palabra[1])#se pasa solo la palabra la logica
 
 
 def ajustarVentana(ventana, height, width):

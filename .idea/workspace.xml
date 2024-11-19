@@ -4,19 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2908d613-e5c0-439d-9c7d-560d1e87f991" name="Changes" comment="Empezamos con las tablas de las bases de datos">
-      <change afterPath="$PROJECT_DIR$/resorcues/ahorcado1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resorcues/ahorcado2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resorcues/ahorcado3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resorcues/ahorcado4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resorcues/ahorcado5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resorcues/ahorcado6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resorcues/ahorcado7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resorcues/lose.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="2908d613-e5c0-439d-9c7d-560d1e87f991" name="Changes" comment="Se ha realizado la interfaz de la parte jugable del juego se ha adaptado la logica a la interfaz y además se ha controlado las cuando pierdes">
       <change beforePath="$PROJECT_DIR$/Interfaz.py" beforeDir="false" afterPath="$PROJECT_DIR$/Interfaz.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logica.py" beforeDir="false" afterPath="$PROJECT_DIR$/Logica.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Registro.db" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,12 +29,12 @@
     &quot;assignee&quot;: &quot;VictorB-05&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/VictorB-05/Ahorcado.git&quot;,
-    &quot;accountId&quot;: &quot;3369469f-dab5-4ef8-a99b-30c7a7529b19&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/VictorB-05/Ahorcado.git",
+    "accountId": "a8d7e403-cece-42ef-abf1-778764fe8224"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -121,11 +110,20 @@
       <option name="project" value="LOCAL" />
       <updated>1731960160220</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Se ha realizado la interfaz de la parte jugable del juego se ha adaptado la logica a la interfaz y además se ha controlado las cuando pierdes">
+      <option name="closed" value="true" />
+      <created>1732045523187</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1732045523187</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Empezamos con las tablas de las bases de datos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Empezamos con las tablas de las bases de datos" />
+    <MESSAGE value="Se ha realizado la interfaz de la parte jugable del juego se ha adaptado la logica a la interfaz y además se ha controlado las cuando pierdes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se ha realizado la interfaz de la parte jugable del juego se ha adaptado la logica a la interfaz y además se ha controlado las cuando pierdes" />
   </component>
 </project>
