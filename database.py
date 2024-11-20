@@ -5,7 +5,6 @@ import random
 def iniciar():
     conn = sqlite3.connect('Registro.db')
 
-    # Crear un cursor
     cursor = conn.cursor()
 
     cursor.execute("CREATE table IF NOT EXISTS jugador"
@@ -24,8 +23,6 @@ def iniciar():
                    "idPalabra INTEGER,"
                    "FOREIGN KEY(idJugador) REFERENCES jugador(id),"
                    "FOREIGN KEY(idPalabra) REFERENCES palabra(id))")
-
-    cursor.execute("INSERT INTO jugador (nombre) VALUES (Paco)")
 
     conn.commit()
 
@@ -62,9 +59,16 @@ def palabras(tipo):
 def partida(jugador,palabra,ganar):
     conn = sqlite3.connect('Registro.db')
 
-    # Crear un cursor
     cursor = conn.cursor()
-    cursor.execute("SELECT id FROM jugador WHERE nombre = ?",jugador)
+    cursor.execute("SELECT id FROM jugador WHERE nombre = ?", (jugador,))
     id = cursor.fetchone()
+    print(id)
+    cursor.execute("INSERT INTO partida (ganada,idJugador,idPalabra) VALUES (?,?,?)",(ganar,id[0],palabra))
+    conn.commit()
 
-    cursor.execute("INSERT INTO partidas (ganada,idJugador,idPalabra) VALUES (?,?,?)")
+def jugador (jugador):
+    conn = sqlite3.connect('Registro.db')
+
+    cursor = conn.cursor()
+    cursor.execute("SELECT id FROM jugador WHERE nombre = ?", (jugador,))
+    id = cursor.fetchone()

@@ -5,11 +5,10 @@ import Logica
 import database
 from PIL import Image, ImageTk
 
-abecedario = [chr(i) for i in range(97, 123)] #abecedario
-teclas_presionadas = set() # Almacenar teclas presionadas para evitar letras duplicadas
-palabra = database.palabras("F")
-logica = Logica.Logica("Paco", palabra[1])#se pasa solo la palabra la logica
+from database import palabras
 
+abecedario = [chr(i) for i in range(97, 123)]  # abecedario
+teclas_presionadas = set()  # Almacenar teclas presionadas para evitar letras duplicadas
 
 def ajustarVentana(ventana, height, width):
     # Obtener las dimensiones de la pantalla
@@ -20,65 +19,8 @@ def ajustarVentana(ventana, height, width):
     position_top = int(screen_height / 2 - height / 2)
     position_left = int(screen_width / 2 - width / 2)
 
-    print(position_left," ",position_top)
-
     # Establecer la geometría de la ventana
     ventana.geometry(f"{width}x{height}+{position_left}+{position_top}")
-def reinit():
-    global palabra, logica, letraR, resultado, teclas_presionadas
-    palabra = database.palabras("F")
-    logica = Logica.Logica("Paco",palabra)
-    letraR.set("LETRA: _")
-    resultado.set(logica.resultado)
-    ahorcado()
-    teclas_presionadas = set()
-
-def manejar_presion(event):
-    # Verificar si la tecla es una letra y quedan vidas
-    if event.name.isalpha()  and logica.vidas > 0:
-        letra  = event.name.lower()
-        if letra in abecedario and letra not in teclas_presionadas: #coprobamos si esta en el abecadario y no esta en las selcionadas
-            teclas_presionadas.add(letra)
-            letraR.set("LETRA:"+letra)
-            print(letra)
-            if logica.jugar(letra):
-                resultado.set(logica.resultado)
-                if logica.fin():
-                    ventana.after(0, win)
-
-            else :
-                ahorcado()
-                if logica.fin():
-                    ventana.after(0, lose)
-
-
-def ahorcado():
-    global img_tk
-    image = Image.open(f"resorcues/ahorcado{logica.vidas+1}.png")
-    img_tk = ImageTk.PhotoImage(image)
-    lAhorcado.config(image=img_tk)
-
-def win():
-    menu = Toplevel()
-    menu.title("GANA")
-    img = PhotoImage(file="resorcues/win.gif")
-    label = tk.Label(menu, image=img)
-    label.pack()
-    tk.Label(menu, text="HAS GANADO").pack()
-    menu.resizable(False, False)
-    ajustarVentana(menu,300,250)
-    menu.mainloop()
-
-def lose():
-    menu = Toplevel()
-    menu.title("VAYA MATAO")
-    img = PhotoImage(file="resorcues/lose.gif")
-    label = tk.Label(menu, image=img)
-    label.pack()
-    tk.Label(menu, text="VAYA MATAO").pack()
-    menu.resizable(False, False)
-    ajustarVentana(menu, 300, 250)
-    menu.mainloop()
 
 ventana = tk.Tk()
 ventana.resizable(False,False)
@@ -88,35 +30,105 @@ frame.pack(expand=True, fill="both")
 frame.pack_propagate(False)
 ajustarVentana(ventana,800,1400)
 
-# Variables
 letraR = tk.StringVar()
-letraR.set("LETRA: _")
+palabra = database.palabras("F")
+logica = Logica
 
-resultado = tk.StringVar()
-resultado.set(logica.resultado)
+def juego(jugador,palabra):
+    global teclas_presionadas, logica
+    database.iniciar()
+    palabra = database.palabras(palabra)
+    logica = Logica.Logica(jugador, palabra[1])#se pasa solo la palabra la logica
 
-# Etiqueta 1
-label1 = tk.Label(frame, textvariable=letraR, font=("Arial", 30), bg="lightblue")
-label1.place(x=400, y=650, height=100, width=200)
+    # Variables
 
-# Etiqueta 2
-rel = tk.Label(frame, textvariable=resultado, font=("Arial", 30), bg="lightblue")
-rel.place(x=650, y=650, height=100, width=400)
+    letraR.set("LETRA: _")
 
-img_path = "resorcues/ahorcado7.png"
-image = Image.open(img_path)
-img_tk = ImageTk.PhotoImage(image)
+    resultado = tk.StringVar()
+    resultado.set(logica.resultado)
 
-lAhorcado = tk.Label(frame, image=img_tk)
-lAhorcado.place(x=400, y=20)
+    # Etiqueta 1
+    label1 = tk.Label(frame, textvariable=letraR, font=("Arial", 30), bg="lightblue")
+    label1.place(x=400, y=650, height=100, width=200)
 
-nombre = tk.StringVar()
-nombre.set(logica.jugador)
-lNombre = tk.Label(frame, textvariable=nombre, font=("Arial", 30), bg="lightblue")
-lNombre.place(x=10,y=100)
+    # Etiqueta 2
+    rel = tk.Label(frame, textvariable=resultado, font=("Arial", 30), bg="lightblue")
+    rel.place(x=650, y=650, height=100, width=400)
 
-breset = Button(frame,text="RESET",bg="RED",command=reinit, font=("Arial", 30), fg="white")
-breset.place(x=1120,y=100)
-keyboard.on_press(manejar_presion)
+    img_path = "resorcues/ahorcado7.png"
+    image = Image.open(img_path)
+    img_tk = ImageTk.PhotoImage(image)
 
-ventana.mainloop()
+    lAhorcado = tk.Label(frame, image=img_tk)
+    lAhorcado.place(x=400, y=20)
+
+    nombre = tk.StringVar()
+    nombre.set(logica.jugador)
+    lNombre = tk.Label(frame, textvariable=nombre, font=("Arial", 30), bg="lightblue")
+    lNombre.place(x=10, y=100)
+
+    def reinit():
+        global teclas_presionadas, palabra, logica
+        palabra = database.palabras("F")
+        logica = Logica.Logica(jugador,palabra[1])
+        letraR.set("LETRA: _")
+        resultado.set(logica.resultado)
+        ahorcado()
+        teclas_presionadas = set()
+
+    def manejar_presion(event):
+        global teclas_presionadas, palabra, logica
+        print(event.name,logica.fin())
+        # Verificar si la tecla es una letra y quedan vidas
+        if event.name.isalpha()  and logica.vidas > 0 and not logica.fin():
+            letra  = event.name.lower()
+            if letra in abecedario and letra not in teclas_presionadas: #coprobamos si esta en el abecadario y no esta en las selcionadas
+                teclas_presionadas.add(letra)
+                letraR.set("LETRA:"+letra)
+                if logica.jugar(letra):
+                    resultado.set(logica.resultado)
+                    if logica.fin():
+                        ventana.after(0, win)
+                        database.partida(logica.jugador,palabra[0],True)
+                else :
+                    ahorcado()
+                    if logica.fin():
+                        ventana.after(0, lose)
+                        database.partida(logica.jugador,palabra[0],False)
+
+
+    def ahorcado():
+        global img_tk
+        image = Image.open(f"resorcues/ahorcado{logica.vidas+1}.png")
+        img_tk = ImageTk.PhotoImage(image)
+        lAhorcado.config(image=img_tk)
+
+    def win():
+        menu = Toplevel()
+        menu.title("GANA")
+        img = PhotoImage(file="resorcues/win.gif")
+        label = tk.Label(menu, image=img)
+        label.pack()
+        tk.Label(menu, text="HAS GANADO").pack()
+        menu.resizable(False, False)
+        ajustarVentana(menu,300,250)
+        menu.mainloop()
+
+    def lose():
+        menu = Toplevel()
+        menu.title("VAYA MATAO")
+        img = PhotoImage(file="resorcues/lose.gif")
+        label = tk.Label(menu, image=img)
+        label.pack()
+        tk.Label(menu, text="VAYA MATAO").pack()
+        menu.resizable(False, False)
+        ajustarVentana(menu, 300, 250)
+        menu.mainloop()
+
+    breset = Button(frame, text="RESET", bg="RED", command=reinit, font=("Arial", 30), fg="white")
+    breset.place(x=1120, y=100)
+    keyboard.on_press(manejar_presion)
+
+    ventana.mainloop()
+
+juego("Paco","f")
