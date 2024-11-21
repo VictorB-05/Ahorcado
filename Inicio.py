@@ -1,11 +1,5 @@
 import tkinter as tk
-from tkinter import PhotoImage, Toplevel, Button
-import keyboard
-
-import Interfaz
-import Logica
 import database
-from PIL import Image, ImageTk
 
 def ajustarVentana(ventana, height, width):
     # Obtener las dimensiones de la pantalla
@@ -19,13 +13,50 @@ def ajustarVentana(ventana, height, width):
     # Establecer la geometría de la ventana
     ventana.geometry(f"{width}x{height}+{position_left}+{position_top}")
 def guardar():
-    name = nombre.get("1.0", "end-1c")
-    print(nombre.get("1.0", "end-1c"))
-    if not name[0]==" " :
+    global inico
+    name = nombre.get("1.0", "end-1c").capitalize()
+    if not len(name)==0:
+        if not name[0]==" " :
+            import Interfaz
+            jugador = database.jugador(name)
+            print(jugador)
+            if jugador == None:
+                database.insertar(name)
+            inico.withdraw()
+            Interfaz.juego(name,"f")
 
-        Interfaz.juego(name,"f")
+def datos():
+    global inico, resultado
+    name = nombre.get("1.0", "end-1c").capitalize()
+    if not len(name) == 0:
+        if not name[0] == " ":
+            jugador = database.jugador(name)
+            if jugador == None:
+                resultado.config(state=tk.NORMAL)
+                resultado.delete("1.0","end")
+                resultado.insert(tk.INSERT,"Resultado: el usuario no existe en la DB")
+                resultado.config(state=tk.DISABLED)
+            else:
+                datos = database.datos(jugador)
+                lista = partidas(datos)
+                resultado.config(state=tk.NORMAL)
+                resultado.delete("1.0","end")
+                resultado.insert(tk.INSERT, f"Resultado:\n GANAR {lista[0]}\n PERDER {lista[1]}")
+                resultado.config(state=tk.DISABLED)
+
+def partidas(datos):
+    ganadas = 0
+    perdidas = 0
+    for list in datos:
+        if list[1] == 1:
+            ganadas+=1
+        else:
+            perdidas+=1
+    debol = [ganadas,perdidas]
+    return debol
 
 
+database.iniciar()
 inico = tk.Tk()
 inico.resizable(False,False)
 inico.title("Ahorcado")
@@ -34,6 +65,15 @@ frame.pack(expand=True, fill="both")
 frame.pack_propagate(False)
 ajustarVentana(inico,400,600)
 
+fruta = tk.Button(frame,text="fruta",bg="#4449fc",fg="#e1e8a5",font=("Comic Sans MS", 12))
+informaticos = tk.Button(frame,text="conpcetos informaticos",bg="#4449fc",fg="#e1e8a5",font=("Comic Sans MS", 12))
+nombres = tk.Button(frame,text="nombres",bg="#4449fc",fg="#e1e8a5",font=("Comic Sans MS", 12))
+fruta.place(x=100,y=70)
+informaticos.place(x=200,y=70)
+nombres.place(x=450,y=70)
+
+label1 = tk.Label(frame, text="Introduce tu nombre:", font=("Arial", 10), bg="lightblue")
+label1.place(x=200,y=120)
 nombre = tk.Text(frame,
                    height = 1,
                    width = 20, font=("Vardana", 12))
@@ -42,4 +82,15 @@ nombre.place(x=200,y=140)
 
 entrar = tk.Button(frame,text="Entrar",bg="#4449fc",command=guardar,fg="#e1e8a5",font=("Comic Sans MS", 20))
 entrar.place(x=240,y=170)
+
+
+resultado = tk.Text(frame,
+                   height = 3,
+                   width = 30, font=("Vardana", 12))
+resultado.insert(tk.END,"Resultado:")
+resultado.place(x=160,y=320)
+resultado.config(state=tk.DISABLED)
+entrar = tk.Button(frame,text="Buscar",bg="#4449fc",command=datos,fg="#e1e8a5",font=("Comic Sans MS", 12))
+entrar.place(x=260,y=270)
+
 inico.mainloop()

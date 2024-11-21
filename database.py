@@ -66,9 +66,25 @@ def partida(jugador,palabra,ganar):
     cursor.execute("INSERT INTO partida (ganada,idJugador,idPalabra) VALUES (?,?,?)",(ganar,id[0],palabra))
     conn.commit()
 
-def jugador (jugador):
+def jugador(jugador):
     conn = sqlite3.connect('Registro.db')
 
     cursor = conn.cursor()
     cursor.execute("SELECT id FROM jugador WHERE nombre = ?", (jugador,))
     id = cursor.fetchone()
+    return id
+
+def insertar(jugador):
+    conn = sqlite3.connect('Registro.db')
+
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO jugador (nombre) VALUES (?)", (jugador,))
+    conn.commit()
+
+def datos(id):
+    conn = sqlite3.connect('Registro.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM partida WHERE idJugador = ?", id)
+    rel = cursor.fetchall()
+    print(rel)
+    return rel

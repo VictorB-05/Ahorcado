@@ -1,4 +1,5 @@
 import tkinter as tk
+from doctest import master
 from tkinter import PhotoImage, Toplevel, Button
 import keyboard
 import Logica
@@ -22,7 +23,7 @@ def ajustarVentana(ventana, height, width):
     # Establecer la geometría de la ventana
     ventana.geometry(f"{width}x{height}+{position_left}+{position_top}")
 
-ventana = tk.Tk()
+ventana = tk.Toplevel()
 ventana.resizable(False,False)
 ventana.title("Ahorcado")
 frame = tk.Frame(ventana, bg="lightblue")
@@ -34,9 +35,13 @@ letraR = tk.StringVar()
 palabra = database.palabras("F")
 logica = Logica
 
+img_path = "resorcues/ahorcado7.png"
+image = Image.open(img_path)
+img_tk = ImageTk.PhotoImage(master= ventana,image=image)
+resultado = tk.StringVar()
+
 def juego(jugador,palabra):
-    global teclas_presionadas, logica
-    database.iniciar()
+    global teclas_presionadas, logica, img_tk, resultado
     palabra = database.palabras(palabra)
     logica = Logica.Logica(jugador, palabra[1])#se pasa solo la palabra la logica
 
@@ -44,7 +49,6 @@ def juego(jugador,palabra):
 
     letraR.set("LETRA: _")
 
-    resultado = tk.StringVar()
     resultado.set(logica.resultado)
 
     # Etiqueta 1
@@ -55,13 +59,11 @@ def juego(jugador,palabra):
     rel = tk.Label(frame, textvariable=resultado, font=("Arial", 30), bg="lightblue")
     rel.place(x=650, y=650, height=100, width=400)
 
-    img_path = "resorcues/ahorcado7.png"
-    image = Image.open(img_path)
-    img_tk = ImageTk.PhotoImage(image)
+
 
     lAhorcado = tk.Label(frame, image=img_tk)
+    lAhorcado.image = img_tk
     lAhorcado.place(x=400, y=20)
-
     nombre = tk.StringVar()
     nombre.set(logica.jugador)
     lNombre = tk.Label(frame, textvariable=nombre, font=("Arial", 30), bg="lightblue")
@@ -93,14 +95,14 @@ def juego(jugador,palabra):
                 else :
                     ahorcado()
                     if logica.fin():
-                        ventana.after(0, lose)
+                        lose()
                         database.partida(logica.jugador,palabra[0],False)
 
 
     def ahorcado():
         global img_tk
         image = Image.open(f"resorcues/ahorcado{logica.vidas+1}.png")
-        img_tk = ImageTk.PhotoImage(image)
+        img_tk = ImageTk.PhotoImage(master=ventana,image=image)
         lAhorcado.config(image=img_tk)
 
     def win():
@@ -112,23 +114,22 @@ def juego(jugador,palabra):
         tk.Label(menu, text="HAS GANADO").pack()
         menu.resizable(False, False)
         ajustarVentana(menu,300,250)
-        menu.mainloop()
+        label.img = img
 
     def lose():
         menu = Toplevel()
-        menu.title("VAYA MATAO")
+        menu.title("PEDER")
         img = PhotoImage(file="resorcues/lose.gif")
         label = tk.Label(menu, image=img)
         label.pack()
-        tk.Label(menu, text="VAYA MATAO").pack()
+        tk.Label(menu, text="HAS GANADO").pack()
         menu.resizable(False, False)
-        ajustarVentana(menu, 300, 250)
-        menu.mainloop()
+        ajustarVentana(menu,300,250)
+        label.img = img
 
     breset = Button(frame, text="RESET", bg="RED", command=reinit, font=("Arial", 30), fg="white")
     breset.place(x=1120, y=100)
     keyboard.on_press(manejar_presion)
-
     ventana.mainloop()
 
-juego("Paco","f")
+# juego("Paco","f")
