@@ -31,21 +31,34 @@ def iniciar():
 
     if len(rel) < 1:
         cursor.execute("")
-        frutas = [("Manzana", "Fruta"), ("Platano", "Fruta"), ("Naranja", "Fruta"),
-                  ("Fresa", "Fruta"), ("Kiwi", "Fruta"), ("Uva", "Fruta"),
-                  ("Pera", "Fruta"), ("Mango", "Fruta"), ("Melon", "Fruta"),
-                  ("Sandia", "Fruta")]
+        frutas = [("Manzana", "fruta"), ("Platano", "fruta"), ("Naranja", "fruta"),
+                  ("Fresa", "fruta"), ("Kiwi", "fruta"), ("Uva", "fruta"),
+                  ("Pera", "fruta"), ("Mango", "fruta"), ("Melon", "fruta"),
+                  ("Sandia", "fruta")]
 
-        conceptos = [("Algoritmo", "Informática"), ("Compilador", "Informática"),
-                     ("Base de Datos", "Informática"), ("Clase", "Informática"),
-                     ("Objeto", "Informática"), ("Framework", "Informática"),
-                     ("Interprete", "Informática"), ("Script", "Informática"),
-                     ("Bit", "Informática"), ("Nodo", "Informática")]
+        conceptos = [("Algoritmo", "informatica"), ("Compilador", "informatica"),
+                     ("Base de Datos", "informatica"), ("Clase", "informatica"),
+                     ("Objeto", "informatica"), ("Framework", "informatica"),
+                     ("Interprete", "informatica"), ("Script", "informatica"),
+                     ("Bit", "informatica"), ("Nodo", "informatica")]
+
+        nombres = [("Victor", "nombre"), ("Dani", "nombre"),
+                     ("Rodri", "nombre"), ("Jose Manuel", "nombre"),
+                     ("Andrea", "nombre"), ("Patri", "nombre"),
+                     ("Carla", "nombre"), ("Ivan", "nombre"),
+                     ("Alberto", "nombre"), ("Lucas", "nombre"),
+                     ("Jose Ignacio", "nombre"), ("Pablo", "nombre"),
+                     ("Antonio", "nombre"), ("Raul", "nombre"),
+                     ("Rafa", "nombre"), ("Martin", "nombre"),
+                     ("Miguel", "nombre"), ("Nico", "nombre"),
+                     ("Guille", "nombre"), ("Roberto", "nombre"),
+                     ("Alexandro", "nombre"), ("Manuel", "nombre"),
+                     ("Sergio", "nombre"), ("Alberto", "nombre"), ("Javier", "nombre")]
 
         # Inserción de datos en la tabla
         cursor.executemany("INSERT INTO palabra (palabra, tipo) VALUES (?, ?)", frutas)
         cursor.executemany("INSERT INTO palabra (palabra, tipo) VALUES (?, ?)", conceptos)
-
+        cursor.executemany("INSERT INTO palabra (palabra, tipo) VALUES (?, ?)", nombres)
         conn.commit()
 def palabras(tipo):
     conn = sqlite3.connect('Registro.db')
@@ -62,7 +75,6 @@ def partida(jugador,palabra,ganar):
     cursor = conn.cursor()
     cursor.execute("SELECT id FROM jugador WHERE nombre = ?", (jugador,))
     id = cursor.fetchone()
-    print(id)
     cursor.execute("INSERT INTO partida (ganada,idJugador,idPalabra) VALUES (?,?,?)",(ganar,id[0],palabra))
     conn.commit()
 
@@ -86,5 +98,4 @@ def datos(id):
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM partida WHERE idJugador = ?", id)
     rel = cursor.fetchall()
-    print(rel)
     return rel

@@ -1,5 +1,8 @@
+import sys
 import tkinter as tk
 import database
+
+palabra = None
 
 def ajustarVentana(ventana, height, width):
     # Obtener las dimensiones de la pantalla
@@ -17,13 +20,13 @@ def guardar():
     name = nombre.get("1.0", "end-1c").capitalize()
     if not len(name)==0:
         if not name[0]==" " :
-            import Interfaz
             jugador = database.jugador(name)
-            print(jugador)
             if jugador == None:
                 database.insertar(name)
-            inico.withdraw()
-            Interfaz.juego(name,"f")
+            if palabra != None:
+                import Interfaz
+                inico.withdraw()
+                Interfaz.juego(name,palabra)
 
 def datos():
     global inico, resultado
@@ -34,7 +37,7 @@ def datos():
             if jugador == None:
                 resultado.config(state=tk.NORMAL)
                 resultado.delete("1.0","end")
-                resultado.insert(tk.INSERT,"Resultado: el usuario no existe en la DB")
+                resultado.insert(tk.INSERT,"Resultado:\n El usuario no existe en la DB")
                 resultado.config(state=tk.DISABLED)
             else:
                 datos = database.datos(jugador)
@@ -55,7 +58,18 @@ def partidas(datos):
     debol = [ganadas,perdidas]
     return debol
 
-
+def tematica(tem):
+    global palabra
+    fruta.config(bg="#4449fc")
+    informaticos.config(bg="#4449fc")
+    nombres.config(bg="#4449fc")
+    palabra=tem
+    if tem == "fruta":
+        fruta.config(bg="red")
+    elif tem == "informatica":
+        informaticos.config(bg="red")
+    elif tem == "nombre":
+        nombres.config(bg="red")
 database.iniciar()
 inico = tk.Tk()
 inico.resizable(False,False)
@@ -65,15 +79,18 @@ frame.pack(expand=True, fill="both")
 frame.pack_propagate(False)
 ajustarVentana(inico,400,600)
 
-fruta = tk.Button(frame,text="fruta",bg="#4449fc",fg="#e1e8a5",font=("Comic Sans MS", 12))
-informaticos = tk.Button(frame,text="conpcetos informaticos",bg="#4449fc",fg="#e1e8a5",font=("Comic Sans MS", 12))
-nombres = tk.Button(frame,text="nombres",bg="#4449fc",fg="#e1e8a5",font=("Comic Sans MS", 12))
-fruta.place(x=100,y=70)
+label1 = tk.Label(frame, text="EL AHORCADO", font=("Arial", 20), bg="lightblue")
+label1.place(x=190,y=10)
+
+fruta = tk.Button(frame,text="fruta",bg="#4449fc",fg="#e1e8a5",font=("Comic Sans MS", 12),command=lambda: tematica("fruta"))
+informaticos = tk.Button(frame,text="conpcetos informaticos",bg="#4449fc",fg="#e1e8a5",font=("Comic Sans MS", 12),command=lambda: tematica("informatica"))
+nombres = tk.Button(frame,text="nombres",bg="#4449fc",fg="#e1e8a5",font=("Comic Sans MS", 12),command=lambda: tematica("nombre"))
+fruta.place(x=90,y=70)
 informaticos.place(x=200,y=70)
 nombres.place(x=450,y=70)
 
-label1 = tk.Label(frame, text="Introduce tu nombre:", font=("Arial", 10), bg="lightblue")
-label1.place(x=200,y=120)
+label1 = tk.Label(frame, text="Introduce tu nombre:", font=("Arial", 15), bg="lightblue")
+label1.place(x=200,y=110)
 nombre = tk.Text(frame,
                    height = 1,
                    width = 20, font=("Vardana", 12))

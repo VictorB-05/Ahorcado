@@ -5,6 +5,7 @@ class Logica:
         self.vidas = 6
         self.palabra = [char.lower() for char in palabra]
         self.resultado = ["_" for _ in palabra]
+        self.espacio()
 
     def jugar(self, letra):
         acierto = False
@@ -22,6 +23,18 @@ class Logica:
         elif self.vidas == 0:
             return True
         return False
+
+    def espacio(self):
+        for i, char in enumerate(self.palabra):
+            if char == " ":
+                self.resultado[i] = " "
+
+    def pResultado(self):
+        aux = ""
+        for char in self.resultado:
+            aux = "".join([aux, " ",char])
+        return aux
+
 
 # import keyboard
 # import database
