@@ -1,5 +1,6 @@
 import sys
 import tkinter as tk
+from logging import root
 from tkinter import PhotoImage, Toplevel, Button
 import keyboard
 import Logica
@@ -111,28 +112,68 @@ def juego(jugador,tematicaAux):
 
     def win():
         menu = Toplevel()
-        menu.title("GANA")
+        menu.title("GANAR")
         menu.config(bg="lightblue")
-        img = PhotoImage(file="resorcues/win.gif")
-        label = tk.Label(menu, image=img,bg="lightblue")
+
+        gif_path = "resorcues/win.gif"
+        gif = Image.open(gif_path)
+        frames = []
+        try:
+            while True:
+                frames.append(ImageTk.PhotoImage(gif.copy()))
+                gif.seek(len(frames))
+        except EOFError:
+            pass
+
+            # Metodo para actualizar frames
+        def actualizarGif(frame_index=0):
+            # Actualizar el frame en el Label
+            label.config(image=frames[frame_index])
+            label.image = frames[frame_index]
+
+            # Calcular el próximo frame
+            next_frame = (frame_index + 1) % len(frames)
+            menu.after(100, actualizarGif, next_frame)
+
+        label = tk.Label(menu, bg="lightblue")
         label.pack()
         tk.Label(menu, text="HAS GANADO",font=("Arial", 20), bg="lightblue").pack()
         menu.resizable(False, False)
         ajustarVentana(menu,300,250)
-        label.img = img
+        actualizarGif()
 
     def lose():
         global palabra
         menu = Toplevel()
         menu.title("PEDER")
         menu.config(bg="lightblue")
-        img = PhotoImage(file="resorcues/lose.gif")
-        label = tk.Label(menu, image=img, bg="lightblue")
+
+        gif_path = "resorcues/lose.gif"
+        gif = Image.open(gif_path)
+        frames = []
+        try:
+            while True:
+                frames.append(ImageTk.PhotoImage(gif.copy()))
+                gif.seek(len(frames))
+        except EOFError:
+            pass
+        
+        #Metodo para actualizar frames
+        def actualizarGif(frame_index=0):
+            # Actualizar el frame en el Label
+            label.config(image=frames[frame_index])
+            label.image = frames[frame_index]
+
+            # Calcular el próximo frame
+            next_frame = (frame_index + 1) % len(frames)
+            menu.after(100, actualizarGif, next_frame)
+
+        label = tk.Label(menu, bg="lightblue")
         label.pack()
         tk.Label(menu, text=f"VAYA MATAO\n Palabra {palabra[1]}", font=("Arial", 20), bg="lightblue").pack()
         menu.resizable(False, False)
-        ajustarVentana(menu,300,250)
-        label.img = img
+        ajustarVentana(menu, 300, 250)
+        actualizarGif()
 
     def salir():
         global ventana, keyboard
@@ -141,6 +182,7 @@ def juego(jugador,tematicaAux):
             ventana = None
         keyboard.unhook_all()
         sys.exit(0)
+
 
 
     breset = Button(frame, text="RESET", bg="RED", command=reinit, font=("Arial", 30), fg="white")
